@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title> Vakali </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+    </head>
+    <body style="background-color:powderblue;">
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <form th:action="@{/login}" method="post">
+            <input type="text" id="username" name="username" placeholder="Käyttäjätunnus">
+                <input type="password" id="password" name="password" placeholder="Salasana">
+                    <input type="submit" value="Kirjaudu sisään">
+                        </form>
+
+                        <a th:href="@{/registration}">Eikö vielä tunnuksia? Rekisteröidy tästä!</a>
+
+                        </body>
+                        </html>

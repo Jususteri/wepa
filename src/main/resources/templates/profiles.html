@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title> Muut käyttäjät </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    
+    <body style="background-color:powderblue;">
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <div th:replace="fragments/layout :: links">navbar</div>
+
+        <div>
+            <label style="margin-top:15px" for="name">Hae henkilöä käyttäjänimellä</label>
+            <form method="POST" th:action="@{/profiles/search}" >
+                <input type="search" name="username" placeholder="Käyttäjänimi"/>
+                <input style="margin-bottom:30px" type="submit" value="Hae käyttäjää"/>
+            </form>
+        </div>
+
+
+        <h2> Kaikki rekisteröityneet käyttjät </h2>
+
+        <ul>
+            <li th:each="user: ${users}">
+                <a th:href="@{/{id}(id=${user.nickname})}" th:text="${user.name}"> haetaan merkkijonolla </a> (<span th:text="${user.username}">käyttäjänimi</span>)
+            </li>
+        </ul>    
+
+
+
+        <div th:replace="fragments/layout :: footer">logout</div>
+
+    </body>
+</html>

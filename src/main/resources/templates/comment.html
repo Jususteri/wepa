@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title> Kommentit </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    <body style="background-color:powderblue;">
+
+        <style>
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>
+
+
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <div th:replace="fragments/layout :: links">navbar</div>
+
+
+        <div style="margin-top: 50px">
+            <p><strong th:text="${post.content}"> Postaus </strong></p>
+        </div>
+
+
+
+
+        <div style="margin-top: 50px" th:if="${post.comments.isEmpty()}">          
+            <span> Postauksella ei ole vielä yhtään kommenttia </span>
+        </div>
+
+
+        <div style="margin-top: 50px" th:if="${!post.comments.isEmpty()}">
+            <span>  Kommentit: </span>
+            <table>           
+                <tr th:each="comment: ${post.comments}">
+                    <th th:text="${'' + comment.commentDate}"> aika </th> 
+                    <th th:text="${comment.user.name}"> nimi </th>
+                    <td th:text="${comment.content}"> kommentti </td>
+                </tr>
+
+            </table>  
+        </div>
+
+
+        <form style="margin-top: 30px" method="POST" th:action="@{/post/comment/{id}(id=${post.id})}">
+            <label  for="post">Kommentoi postausta</label>
+            <textarea maxlength="240" id="comment" name="comment" rows="4" cols="50">Yksi kommentti voi sisältää korkeintaan 240 merkkiä</textarea>
+            <input type="submit" value="Lähetä"/>
+        </form>
+
+
+
+
+
+
+        <div th:replace="fragments/layout :: footer">logout</div>
+
+    </body>
+</html>

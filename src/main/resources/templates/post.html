@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title> Postaukset </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    <body style="background-color:powderblue;">
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <div th:replace="fragments/layout :: links">navbar</div>
+
+
+        <h2> Postaukset </h2> 
+
+
+        <div style="margin-top: 30px" th:if="${posts.isEmpty()}">       
+            <h4> Kukaan ei ole vielä jättänyt postausta </h4>
+        </div>
+
+
+        <div th:if="${!posts.isEmpty()}"> 
+            <div class="w3-container">  
+                <ul class="w3-ul w3-border">
+                    <li th:each="post : ${posts}">
+                        <span th:text="${post.postDate + ' '}">aika</span>
+                        |<span th:text="${' ' + post.user.name + ' '}">nimi</span>
+                        | <span th:text="${' ' + post.content + ' '}">postaus</span>
+                        | <span style="color:blue" th:text="${' ' + post.likeCounter + ' tykkäystä'}">laskuri</span>
+                        <form th:action="@{/post/{postId}(postId=${post.id})}" th:method="POST">
+                            <button type="submit" class="btn btn-primary btn-xs" th:id="${post.id}">Tykkää</button>
+                        </form><br/> 
+                        <a th:href="@{/post/comment/{id}(id=${post.id})}" >Katso postauksen kommentteja</a> 
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <form method="POST" th:action="@{/post}">
+            <label  for="post">Kirjoita postaus tähän!</label>
+            <textarea  maxlength="240" id="post" name="post" rows="4" cols="50">Yksi postaus voi sisältää korkeintaan 240 merkkiä</textarea>
+            <input type="submit" value="Lähetä"/>
+        </form>
+
+
+        <div th:replace="fragments/layout :: footer">logout</div>
+
+    </body>
+</html>

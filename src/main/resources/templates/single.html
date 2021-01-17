@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title th:text="${user.username}">User name</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    <body style="background-color:powderblue;">
+
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <div th:replace="fragments/layout :: links">navbar</div>
+
+
+
+        <h3 th:text="${user.name}">Käyttäjän nimi</h3>
+
+        <div style="display: inline-block">
+
+            <div th:if="${user.content == null}">
+                <h6> Käyttäjä ei ole vielä lisännyt profiilikuvaa </h6>                         
+            </div>
+
+            <div th:if="${user.content != null}">
+                <img th:src="@{/profilepicture/{id}(id=${user.nickname})}" alt="Profile" width="400" height="400"/>
+            </div>
+        </div>   
+
+
+
+        <div style="display: inline-block">
+            <div style="margin-left:100px">
+
+                <h3> Käyttäjän taidot </h3>
+
+                <div th:if="${user.skills.isEmpty()}">
+                    <h6> Käyttäjä ei ole vielä lisännyt yhtään taitoa </h6>
+                </div>
+
+
+                <div th:if="${!user.skills.isEmpty()}">
+                    <ol>
+                        <li th:each="skill : ${user.skills}">
+                            <span th:text="${skill.ability}">skill</span>
+                            | <span th:text="${' Taitoa kehuttu ' + skill.praiseCounter + ' kertaa'}">counter</span>
+                            <form th:action="@{/skill/{skillId}(skillId=${skill.id})}" th:method="POST">
+                                <button type="submit" class="btn btn-primary btn-xs" th:id="${skill.id}">Anna taidolle kehu</button>
+                            </form><br/>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+
+        <div th:replace="fragments/layout :: footer">footer</div>
+
+    </body>
+</html>

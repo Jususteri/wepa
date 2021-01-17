@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title th:text="${user.username}">User name</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    <body style="background-color:powderblue;">
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <div th:replace="fragments/layout :: links">navbar</div>
+
+
+
+        <h3> Tervetuloa</h3>
+        <h3 th:text="${user.name}">käyttäjän nimi</h3>
+
+        <div style="display: inline-block">
+
+            <div th:if="${user.content == null}">
+                <h6> Sinulla ei ole vielä profiilikuvaa, voit lisätä sen tästä</h6>
+
+                <form method="POST" th:action="@{/profilepicture}" enctype="multipart/form-data">
+                    <input type="file" accept="image/*" name="file"/>
+                    <input type="submit" value="Lisää kuva!"/>
+                </form>  
+            </div>
+
+            <div th:if="${user.content != null}">
+                <img th:src="@{/profilepicture/{id}(id=${user.nickname})}" alt="Profile" width="400" height="400"/>
+
+                <form method="POST" th:action="@{/delete}">
+                    <input type="submit" value="Poista profiilikuva"/>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div style="display: inline-block">
+            <div style="margin-left:100px">
+
+                <h3> Taitosi </h3>
+
+
+                <div th:if="${user.skills.isEmpty()}">
+                    <h6> Et ole lisännyt vielä yhtään taitoa! </h6>
+                </div>
+
+
+                <div th:if="${!user.skills.isEmpty()}">
+                    <ol>
+                        <li th:each="skill : ${user.skills}">
+                            <span th:text="${skill.ability}">skill</span>
+                            | <span th:text="${' Taitoa kehuttu ' + skill.praiseCounter + ' kertaa'}">counter</span>
+                        </li>
+                    </ol>
+                </div>
+
+
+                <h6> Lisää taito tästä </h6> 
+                <form method="POST" th:action="@{/skill}" action="/skill">
+                    <input type="text" name="skill" required/>  
+                    <input type="submit" value="Lisää!"/>
+                </form>
+
+            </div>
+        </div>
+
+
+        <div th:replace="fragments/layout :: footer">logout</div>
+
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title> Rekisteröinti </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    <body style="background-color:powderblue;">
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+
+
+        <div style="margin-bottom:30px"> 
+            <h2>Syötä tarvittavat tiedot</h2>
+        </div>
+
+
+        <form method="POST" th:action="@{/registration}" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>
+                        Käyttäjätunnus: 
+                    </td>
+                    <td>
+                        <input type="text" name="username" placeholder="Käyttäjätunnus"  required/>
+                        *
+                    </td>
+                </tr>          
+                <tr>
+                    <td>
+                        Salasana: 
+                    </td>
+                    <td>
+                        <input type="password" name="password" placeholder="Salasana" required/>
+                        *
+                    </td>
+                </tr>
+                <tr>
+                    <td>                 
+                        Nimi:                 
+                    </td>
+                    <td>
+                        <input type="text" name="name" placeholder="Nimi" required/>
+                        *
+                    </td>
+                </tr>              
+                <tr>
+                    <td>    
+                        Kutsumanimi: 
+                    </td>
+                    <td>
+                        <input type="text" name="nickname" placeholder="Kutsumanimi" required/>
+                        *   (Merkkijono jonka perusteella sinut voidaan löytää sovelluksesta)
+                    </td>
+                </tr>
+                <tr>
+                    <td>    
+                        Profiilikuva:
+                    </td>
+                    <td>
+                        <input type="file" accept="image/*" name="file"/>
+                    </td>
+                </tr>
+            </table>
+            <h6> Tähdellä (*) merkityt kentät ovat pakollisia </h6>
+            <button class="btn btn-primary btn-lg" style="margin-bottom:30px" type="submit">Rekisteröidy!</button>
+        </form>
+
+        <a href="/login">Takaisin kirjautumiseen</a>
+
+    </body>
+</html>

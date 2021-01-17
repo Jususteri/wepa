@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <title> Virhe! </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    </head>
+
+    <body style="background-color:powderblue;">
+
+        <div th:replace="fragments/layout :: top">top</div>
+
+        <h2>Virhe!</h2>
+
+
+        <div th:if="${username == false}">
+            <h4> Käyttäjänimi on jo käytössä! Valitse toinen nimi </h4>
+            <a href="/registration">Takaisin rekisteröintiin</a>
+        </div>
+
+
+
+
+
+        <div th:if="${nickname == false}">
+            <h4> Kutsumanimi on jo käytössä! Valitse toinen nimi </h4>
+            <a href="/registration">Takaisin rekisteröintiin</a>
+        </div>
+
+
+
+        
+        
+        <div th:if="${search == false}">
+            <h4> Käyttäjänimellä ei löytynyt yhtään henkilöä, kokeile uudestaan </h4>
+            <a href="/profiles">Takaisin käyttäjiin</a>
+            <div th:replace="fragments/layout :: footer">logout</div>
+        </div>
+
+        
+    </body>
+</html>
